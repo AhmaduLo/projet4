@@ -117,17 +117,19 @@ form.addEventListener("submit", (e) => {
     !loc3.checked &&
     !loc4.checked &&
     !loc5.checked &&
-    !loc6.checked
+    !loc6.checked 
   ) {
     error[5].innerHTML = "Un bouton radio est sélectionné.";
+    modalbg.style.display = "block";
   } else {
     error[5].innerHTML = "";
   }
   //-----------------------------
-  if(checkbox1.checked){
-    error[6].innerHTML = ""; 
-  }else{
-    error[6].innerHTML = "Vous devez vérifier que vous acceptez les termes et conditions.";
+  if (checkbox1.checked) {
+    error[6].innerHTML = "";
+  } else {
+    error[6].innerHTML =
+      "Vous devez vérifier que vous acceptez les termes et conditions.";
   }
   //-------------validation form btn------------------------------------
 
@@ -137,13 +139,8 @@ form.addEventListener("submit", (e) => {
     input[2].value.length !== 0 &&
     input[3].value.length !== 0 &&
     input[4].value.length !== 0 &&
-    checkbox1.checked &&
-    loc1.checked ||
-    loc2.checked ||
-    loc3.checked ||
-    loc4.checked ||
-    loc5.checked ||
-    loc6.checked 
+    checkbox1.checked 
+    
   ) {
     modalbg.style.display = "none";
     e.preventDefault();
