@@ -65,10 +65,10 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   var errorId;
 
-  //-------------validation input regex---------------
+ 
   //-------------------------------------------------
 
-  if (fisrt_name.value === "" || fisrt_name.value == null) {
+  if (fisrt_name.value === "") {
     error[0].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du prenom";
     input[0].style.border = "1px solid red";
@@ -148,18 +148,17 @@ form.addEventListener("submit", (e) => {
 
   //----------validation final----------
   if (
-    input[0].value.length !== 0 &&
-    input[1].value.length !== 0 &&
-    input[2].value.length !== 0 &&
-    input[3].value.length !== 0 &&
-    input[4].value.length !== 0 &&
-    loc1.checked ||
+    (input[0].value.length !== 0 &&
+      input[1].value.length !== 0 &&
+      input[2].value.length !== 0 &&
+      input[3].value.length !== 0 &&
+      input[4].value.length !== 0 &&
+      loc1.checked) ||
     loc2.checked ||
     loc3.checked ||
     loc4.checked ||
     loc5.checked ||
-    loc6.checked &&
-    checkbox1.checked 
+    (loc6.checked && checkbox1.checked)
   ) {
     modalbg.style.display = "none";
     e.preventDefault();
