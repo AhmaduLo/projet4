@@ -63,13 +63,18 @@ function closeMod() {
 //---------form validator-----------
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  var errorId;
+
+  //-------------validation input regex---------------
+  //-------------------------------------------------
 
   if (fisrt_name.value === "" || fisrt_name.value == null) {
     error[0].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du prenom";
     input[0].style.border = "1px solid red";
+    errorId;
   } else {
-    input[0].style.border = "0px solid red";
+    input[0].style.border = "none";
     error[0].innerHTML = "";
   }
   //-------------------------------------------------
@@ -77,8 +82,9 @@ form.addEventListener("submit", (e) => {
     error[1].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom";
     input[1].style.border = "1px solid red";
+    errorId;
   } else {
-    input[1].style.border = "0px solid red";
+    input[1].style.border = "none";
     error[1].innerHTML = "";
   }
   //-------------------------------------------------
@@ -86,8 +92,9 @@ form.addEventListener("submit", (e) => {
     error[2].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du email";
     input[2].style.border = "1px solid red";
+    errorId;
   } else {
-    input[2].style.border = "0px solid red";
+    input[2].style.border = "none";
     error[2].innerHTML = "";
   }
   //-------------------------------------------------
@@ -98,49 +105,61 @@ form.addEventListener("submit", (e) => {
   ) {
     error[3].innerHTML = "Vous devez entrer votre date de naissance.";
     input[3].style.border = "1px solid red";
+    errorId;
   } else {
-    input[3].style.border = "0px solid red";
+    input[3].style.border = "none";
     error[3].innerHTML = "";
   }
   //-------------------------------------------------
   if (quantity.value === "" || quantity.value == null) {
     error[4].innerHTML = " une valeur numérique est saisie.";
     input[4].style.border = "1px solid red";
+    errorId;
   } else {
-    input[4].style.border = "0px solid red";
+    input[4].style.border = "none";
     error[4].innerHTML = "";
   }
-  //-------------------------------------------------
+
+  //-----------validated check--------
+  //-----------------------------------
   if (
-    !loc1.checked &&
-    !loc2.checked &&
-    !loc3.checked &&
-    !loc4.checked &&
-    !loc5.checked &&
-    !loc6.checked 
+    loc1.checked ||
+    loc2.checked ||
+    loc3.checked ||
+    loc4.checked ||
+    loc5.checked ||
+    loc6.checked
   ) {
-    error[5].innerHTML = "Un bouton radio est sélectionné.";
-    modalbg.style.display = "block";
-  } else {
     error[5].innerHTML = "";
+    errorId == true;
+  } else {
+    error[5].innerHTML = "Un bouton radio n'est pas sélectionné.";
   }
-  //-----------------------------
+
   if (checkbox1.checked) {
     error[6].innerHTML = "";
   } else {
     error[6].innerHTML =
       "Vous devez vérifier que vous acceptez les termes et conditions.";
+    errorId;
   }
-  //-------------validation form btn------------------------------------
 
+  //validateInput(input , "^[a-zA-Z]", error, input);
+
+  //----------validation final----------
   if (
     input[0].value.length !== 0 &&
     input[1].value.length !== 0 &&
     input[2].value.length !== 0 &&
     input[3].value.length !== 0 &&
     input[4].value.length !== 0 &&
+    loc1.checked ||
+    loc2.checked ||
+    loc3.checked ||
+    loc4.checked ||
+    loc5.checked ||
+    loc6.checked &&
     checkbox1.checked 
-    
   ) {
     modalbg.style.display = "none";
     e.preventDefault();
