@@ -60,105 +60,24 @@ function closeMod() {
   location.reload();
 }
 
+let maxDate;
+// birthdate max date
+document.addEventListener("DOMContentLoaded", maxBirthdate);
+
 //---------form validator-----------
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  var errorId;
 
- 
-  //-------------------------------------------------
+  validate();
 
-  if (fisrt_name.value === "") {
-    error[0].innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du prenom";
-    input[0].style.border = "1px solid red";
-    errorId;
-  } else {
-    input[0].style.border = "none";
-    error[0].innerHTML = "";
-  }
-  //-------------------------------------------------
-  if (last_name.value === "" || last_name.value == null) {
-    error[1].innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du nom";
-    input[1].style.border = "1px solid red";
-    errorId;
-  } else {
-    input[1].style.border = "none";
-    error[1].innerHTML = "";
-  }
-  //-------------------------------------------------
-  if (email.value === "" || email.value == null) {
-    error[2].innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du email";
-    input[2].style.border = "1px solid red";
-    errorId;
-  } else {
-    input[2].style.border = "none";
-    error[2].innerHTML = "";
-  }
-  //-------------------------------------------------
   if (
-    birthdate.value === "" ||
-    birthdate.value == null ||
-    birthdate.value === "jj/mm/aaaa"
-  ) {
-    error[3].innerHTML = "Vous devez entrer votre date de naissance.";
-    input[3].style.border = "1px solid red";
-    errorId;
-  } else {
-    input[3].style.border = "none";
-    error[3].innerHTML = "";
-  }
-  //-------------------------------------------------
-  if (quantity.value === "" || quantity.value == null) {
-    error[4].innerHTML = " une valeur numérique est saisie.";
-    input[4].style.border = "1px solid red";
-    errorId;
-  } else {
-    input[4].style.border = "none";
-    error[4].innerHTML = "";
-  }
-
-  //-----------validated check--------
-  //-----------------------------------
-  if (
-    loc1.checked ||
-    loc2.checked ||
-    loc3.checked ||
-    loc4.checked ||
-    loc5.checked ||
-    loc6.checked
-  ) {
-    error[5].innerHTML = "";
-    errorId == true;
-  } else {
-    error[5].innerHTML = "Un bouton radio n'est pas sélectionné.";
-  }
-
-  if (checkbox1.checked) {
-    error[6].innerHTML = "";
-  } else {
-    error[6].innerHTML =
-      "Vous devez vérifier que vous acceptez les termes et conditions.";
-    errorId;
-  }
-
-  //validateInput(input , "^[a-zA-Z]", error, input);
-
-  //----------validation final----------
-  if (
-    (input[0].value.length !== 0 &&
-      input[1].value.length !== 0 &&
-      input[2].value.length !== 0 &&
-      input[3].value.length !== 0 &&
-      input[4].value.length !== 0 &&
-      loc1.checked) ||
-    loc2.checked ||
-    loc3.checked ||
-    loc4.checked ||
-    loc5.checked ||
-    (loc6.checked && checkbox1.checked)
+    validFisrtName() == true &&
+    validLastName() == true &&
+    validEmail() == true &&
+    validBirthdate() == true &&
+    validQuantity() == true &&
+    validLocation() == true &&
+    validCGV() == true
   ) {
     modalbg.style.display = "none";
     e.preventDefault();
@@ -167,3 +86,134 @@ form.addEventListener("submit", (e) => {
     modalbg.style.display = "block";
   }
 });
+
+// Form validation
+function validate() {
+  validFisrtName();
+  validLastName();
+  validEmail();
+  validBirthdate();
+  validQuantity();
+  validLocation();
+  validCGV();
+}
+
+// ------------------FirstName validation-----------
+function validFisrtName() {
+  if (!fisrt_name.value) {
+    error[0].innerHTML = "Veuillez renseigner un prénom.";
+    return false;
+  } else if (fisrt_name.value.length <= 1) {
+    error[0].innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ du prenom.";
+    return false;
+  } else if (!fisrt_name.value.match(/[a-zA-Z]+/g)) {
+    error[0].innerHTML = "Veuillez entrer un prénom valide.";
+    return false;
+  } else {
+    //setValid(fisrt_name);
+    error[0].innerHTML = "";
+    return true;
+  }
+}
+
+// ------------------LastName validation-----------
+function validLastName() {
+  if (!fisrt_name.value) {
+    error[1].innerHTML = "Veuillez renseigner un nom.";
+    return false;
+  } else if (fisrt_name.value.length <= 1) {
+    error[1].innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    return false;
+  } else if (!fisrt_name.value.match(/[a-zA-Z]+/g)) {
+    error[1].innerHTML = "Veuillez entrer un nom valide.";
+    return false;
+  } else {
+    //setValid(fisrt_name);
+    error[1].innerHTML = "";
+    return true;
+  }
+}
+
+// ------------------email validation-----------
+function validEmail() {
+  let mailRegex = /^[a-zA-Z][a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
+  if (!email.value) {
+    error[2].innerHTML = "Veuillez renseigner un E-mail.";
+    return false;
+  } else if (fisrt_name.value.length <= 1) {
+    error[2].innerHTML = "Veuillez renseigner un E-mail.";
+    return false;
+  } else if (!email.value.match(mailRegex)) {
+    error[2].innerHTML = "Veuillez entrer un nom valide.";
+    return false;
+  } else {
+    //setValid(fisrt_name);
+    error[2].innerHTML = "";
+    return true;
+  }
+}
+
+// ------------------Birthdate validation-----------
+function maxBirthdate() {
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getUTCFullYear();
+  
+  if (day < 10){
+    day = '0' + day;
+  }
+  if (month < 10) {
+    month = '0' + month;
+  }
+  maxDate = year + "-" + month + "-" + day;
+  maxDate = maxDate;
+  document.getElementById("birthdate").setAttribute('max', maxDate);
+}
+function validBirthdate() {
+  if (!birthdate.value) {
+    error[3].innerHTML= "Veuillez renseigner une date de naissance.";
+    return false;
+  } else {
+      //setValid(birthdate);
+      error[3].innerHTML="";
+      return true;
+  }
+}
+// ------------------quantity validation-----------
+function validQuantity() {
+  if (!quantity.value) {
+    error[4].innerHTML="Veuillez renseigner a combien de tournois GameOn avez-vous déjà participé.";
+    return false;
+  } else {
+    //setValid(quantity);
+    error[4].innerHTML="";
+    return true;
+  }
+}
+// ------------------checkValue validation-----------
+function validLocation() {
+  let radioCheck = document.querySelector('input[name = "location"]:checked');
+  //console.log(radioCheck);
+
+  if (radioCheck == null) {
+    error[5].innerHTML="Veuillez renseigner une localisation.";
+    return false;
+  } else {
+    error[5].innerHTML="";
+    return true;
+  }
+}
+
+// ------------------CGV validation-----------
+function validCGV(){
+  if(checkbox1.checked){
+    error[6].innerHTML="";
+    return true;
+  }else{
+    error[6].innerHTML="Veuillez accepter les CGV."
+    return false;
+  }
+}
