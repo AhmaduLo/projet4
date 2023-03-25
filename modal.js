@@ -27,13 +27,6 @@ const birthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 //---------------------checkbox DOM----------------------------------------
 checkbox_input = document.querySelector("checkbox-input");
-const loc1 = document.getElementById("location1");
-const loc2 = document.getElementById("location2");
-const loc3 = document.getElementById("location3");
-const loc4 = document.getElementById("location4");
-const loc5 = document.getElementById("location5");
-const loc6 = document.getElementById("location6");
-
 const checkbox1 = document.getElementById("checkbox1");
 const checkbox2 = document.getElementById("checkbox2");
 
@@ -104,6 +97,7 @@ function validFisrtName() {
     error[0].innerHTML = "Veuillez renseigner un prénom.";
     return false;
   } else if (fisrt_name.value.length <= 1) {
+    //console.log("salut");
     error[0].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du prenom.";
     return false;
@@ -111,7 +105,6 @@ function validFisrtName() {
     error[0].innerHTML = "Veuillez entrer un prénom valide.";
     return false;
   } else {
-    //setValid(fisrt_name);
     error[0].innerHTML = "";
     return true;
   }
@@ -119,18 +112,17 @@ function validFisrtName() {
 
 // ------------------LastName validation-----------
 function validLastName() {
-  if (!fisrt_name.value) {
+  if (!last_name.value) {
     error[1].innerHTML = "Veuillez renseigner un nom.";
     return false;
-  } else if (fisrt_name.value.length <= 1) {
+  } else if (last_name.value.length <= 1) {
     error[1].innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     return false;
-  } else if (!fisrt_name.value.match(/[a-zA-Z]+/g)) {
+  } else if (!last_name.value.match(/[a-zA-Z]+/g)) {
     error[1].innerHTML = "Veuillez entrer un nom valide.";
     return false;
   } else {
-    //setValid(fisrt_name);
     error[1].innerHTML = "";
     return true;
   }
@@ -142,14 +134,10 @@ function validEmail() {
   if (!email.value) {
     error[2].innerHTML = "Veuillez renseigner un E-mail.";
     return false;
-  } else if (fisrt_name.value.length <= 1) {
-    error[2].innerHTML = "Veuillez renseigner un E-mail.";
-    return false;
   } else if (!email.value.match(mailRegex)) {
     error[2].innerHTML = "Veuillez entrer un nom valide.";
     return false;
   } else {
-    //setValid(fisrt_name);
     error[2].innerHTML = "";
     return true;
   }
@@ -157,63 +145,65 @@ function validEmail() {
 
 // ------------------Birthdate validation-----------
 function maxBirthdate() {
+  const minAge = 10;
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
-  let year = date.getUTCFullYear();
-  
-  if (day < 10){
-    day = '0' + day;
+  let year = date.getUTCFullYear() - minAge;
+
+  if (day < 10) {
+    day = "0" + day;
   }
   if (month < 10) {
-    month = '0' + month;
+    month = "0" + month;
   }
+  if (year < 10) {
+    year = "0" + year;
+  }
+
   maxDate = year + "-" + month + "-" + day;
   maxDate = maxDate;
-  document.getElementById("birthdate").setAttribute('max', maxDate);
+  document.getElementById("birthdate").setAttribute("max", maxDate);
 }
 function validBirthdate() {
   if (!birthdate.value) {
-    error[3].innerHTML= "Veuillez renseigner une date de naissance.";
+    error[3].innerHTML = "Veuillez renseigner une date de naissance.";
     return false;
   } else {
-      //setValid(birthdate);
-      error[3].innerHTML="";
-      return true;
+    error[3].innerHTML = "";
+    return true;
   }
 }
 // ------------------quantity validation-----------
 function validQuantity() {
   if (!quantity.value) {
-    error[4].innerHTML="Veuillez renseigner a combien de tournois GameOn avez-vous déjà participé.";
+    error[4].innerHTML =
+      "Veuillez renseigner a combien de tournois GameOn avez-vous déjà participé.";
     return false;
   } else {
-    //setValid(quantity);
-    error[4].innerHTML="";
+    error[4].innerHTML = "";
     return true;
   }
 }
 // ------------------checkValue validation-----------
 function validLocation() {
   let radioCheck = document.querySelector('input[name = "location"]:checked');
-  //console.log(radioCheck);
-
   if (radioCheck == null) {
-    error[5].innerHTML="Veuillez renseigner une localisation.";
+    error[5].innerHTML = "Veuillez renseigner une localisation.";
     return false;
   } else {
-    error[5].innerHTML="";
+    error[5].innerHTML = "";
     return true;
   }
 }
 
 // ------------------CGV validation-----------
-function validCGV(){
-  if(checkbox1.checked){
-    error[6].innerHTML="";
+function validCGV() {
+  if (checkbox1.checked) {
+    error[6].innerHTML = "";
     return true;
-  }else{
-    error[6].innerHTML="Veuillez accepter les CGV."
+  } else {
+    error[6].innerHTML = "Veuillez accepter les CGV.";
     return false;
   }
 }
